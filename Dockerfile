@@ -22,9 +22,10 @@ RUN useradd go -m -d /go
 # Ensure that the container logs on stdout
 ADD $LOG4J_PROPERTIES_URL /go/log4j.properties
 ADD $LOG4J_PROPERTIES_URL /go/go-agent-log4j.properties
+RUN chown go:go /go/go-agent-log4j.properties && chown go:go /go/log4j.properties
 
 ADD $GO_AGENT_URL /go/go-agent
-RUN chmod 755 /go/go-agent
+RUN chmod 755 /go/go-agent && chown go:go /go/go-agent
 
 # Run the bootstrapper as the `go` user
 USER go
